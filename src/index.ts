@@ -1,6 +1,6 @@
 import express, { Application } from "express";
 import bodyParser from "body-parser";
-import { router } from "./routes/index";
+import { routes } from "./routes/index";
 import { connectWithDatabase } from "./db/connect";
 
 const app: Application = express();
@@ -9,7 +9,7 @@ const app: Application = express();
 app.use(bodyParser.json());
 
 //Set all routes
-app.use("/", router);
+app.use("/", routes);
 
 app.listen(3000, () => console.log("App listen on port 3000"));
 

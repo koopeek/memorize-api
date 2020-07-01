@@ -5,4 +5,4 @@ const router: Router = Router();
 
 router.use("/auth", authRouter);
 
-export { router };
+export { router as routes };
