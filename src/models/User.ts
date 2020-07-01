@@ -1,4 +1,4 @@
-import { Schema, Document, Model, model } from "mongoose";
+import { Schema, Document, model } from "mongoose";
 
 interface IUser extends Document {
   email: string;
