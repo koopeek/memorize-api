@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-import { CONFIG } from "./config";
+import { CONFIG } from "../config/config";
 
-const conntectWithDatabase = () => {
+const connectWithDatabase = () => {
   mongoose.connect(
     CONFIG.DB_CONNECT,
     { useNewUrlParser: true, useUnifiedTopology: true },
@@ -9,4 +9,4 @@ const conntectWithDatabase = () => {
   );
 };
 
-export { conntectWithDatabase };
+export { connectWithDatabase };
