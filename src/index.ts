@@ -1,11 +1,16 @@
-import express from "express";
+import express, { Application } from "express";
+import mongoose from "mongoose";
+import { authRouter } from "./routes/auth";
+import { CONFIG } from "./config";
 
-const app = express();
+const app: Application = express();
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+mongoose.connect(
+  CONFIG.DB_CONNECT,
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => console.log("DB CONNECTED")
+);
 
-app.listen(3000, () => {
-  console.log("App listen on port 3000");
-});
+app.use("/user", authRouter);
+
+app.listen(3000, () => console.log("App listen on port 3000"));
