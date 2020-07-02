@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { CONFIG } from "../config/config";
 
-const connectWithDatabase = () => {
+const connectWithDatabase = (): void => {
   try {
     mongoose.connect(
       CONFIG.DB_CONNECT,

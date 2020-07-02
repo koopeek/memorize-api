@@ -1,9 +1,5 @@
-import { Schema, Document, model } from "mongoose";
-
-interface IUser extends Document {
-  email: string;
-  password: string;
-}
+import { Schema, model } from "mongoose";
+import { IUser } from "../interfaces/IUser";
 
 const userSchema: Schema = new Schema({
   email: { type: String, required: true },
