@@ -1,15 +1,36 @@
 import { Request, Response } from "express";
+import { createUser, saveUser } from "../services/userService";
 
-class AuthController {
-  static register = (req: Request, res: Response) => {
-    // Actions connected with register user
-    res.send("Register endpoint!");
-  };
+const register = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  try {
+    console.log("REGISTER ENDPOINT");
 
-  static login = (req: Request, res: Response) => {
-    //Actions connected with login user
-    res.send("Login endpoint!");
-  };
-}
+    const user = await createUser(email, password);
 
-export { AuthController };
+    console.log("Created");
+    console.log(user);
+    await user.save();
+
+    console.log("Saved");
+    // const savedUser = await user.save();
+    // console.log("zapisany user:");
+    // console.log(savedUser);
+    // res.send(savedUser);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+};
+
+const login = (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  try {
+    //TODO
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+};
+
+export { login, register };
