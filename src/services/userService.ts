@@ -1,8 +1,11 @@
 import { User } from "../models/User";
 import { IUser } from "../interfaces/IUser";
 
-const createUser = async (email: string, password: string): Promise<IUser> => {
-  const user = await new User({
+const createUser = async (
+  email: IUser["email"],
+  password: IUser["password"]
+): Promise<IUser> => {
+  const user: IUser = new User({
     email,
     password,
   });
@@ -11,7 +14,7 @@ const createUser = async (email: string, password: string): Promise<IUser> => {
 
 const saveUser = async (user: IUser): Promise<IUser> => {
   try {
-    const savedUser = await user.save();
+    const savedUser: IUser = await user.save();
     return savedUser;
   } catch (e) {
     console.log(e);
@@ -20,15 +23,11 @@ const saveUser = async (user: IUser): Promise<IUser> => {
 
 const getUserByEmail = async (email: IUser["email"]): Promise<IUser | null> => {
   try {
-    const user = await User.findOne({ email: email });
+    const user: IUser = await User.findOne({ email: email });
     return user;
   } catch (e) {
     console.log(e);
   }
 };
 
-const getUserById = (id: string) => {
-  //TODO
-};
-
-export { createUser, saveUser, getUserById, getUserByEmail };
+export { createUser, saveUser, getUserByEmail };
