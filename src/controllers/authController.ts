@@ -1,25 +1,23 @@
 import { Request, Response } from "express";
-import { createUser, saveUser } from "../services/userService";
+import mongoose from "mongoose";
+import { createUser, saveUser, getUserByEmail } from "../services/userService";
 
 const register = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
-    console.log("REGISTER ENDPOINT");
+    const user = getUserByEmail(email);
 
-    const user = await createUser(email, password);
+    if (user) {
+      res.status(400).send("User already exists.");
+    }
 
-    console.log("Created");
-    console.log(user);
-    await user.save();
+    const newUser = await createUser(email, password);
+    const newUserSaved = await saveUser(newUser);
 
-    console.log("Saved");
-    // const savedUser = await user.save();
-    // console.log("zapisany user:");
-    // console.log(savedUser);
-    // res.send(savedUser);
+    res.status(200).send(newUserSaved);
   } catch (e) {
     console.log(e);
-    res.sendStatus(500);
+    res.status(500).send(e.message);
   }
 };
 
